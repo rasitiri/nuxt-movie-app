@@ -15,15 +15,13 @@
           </nuxt-link>
         </li>
         <li class="md:ml-16 mt-3 md:mt-0">
-          <nuxt-link to="/movies" class="hover:text-gray-300">Movies</nuxt-link>
+          <nuxt-link to="/" class="hover:text-gray-300">Movies</nuxt-link>
         </li>
         <li class="md:ml-6 mt-3 md:mt-0">
-          <nuxt-link to="/tv-shows" class="hover:text-gray-300"
-            >TV Shows</nuxt-link
-          >
+          <nuxt-link to="/" class="hover:text-gray-300">TV Shows</nuxt-link>
         </li>
         <li class="md:ml-6 mt-3 md:mt-0">
-          <nuxt-link to="/actors" class="hover:text-gray-300">Actors</nuxt-link>
+          <nuxt-link to="/" class="hover:text-gray-300">Actors</nuxt-link>
         </li>
       </ul>
       <div class="flex flex-col md:flex-row items-center">

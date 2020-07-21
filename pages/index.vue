@@ -5,11 +5,11 @@
     <div class="flex items-center">
       <div class="mx-auto">
         <loading
-          opacity="0.1"
+          :opacity="opacity"
           :active.sync="isLoading"
           loader="dots"
           color="#fc8c03"
-          is-full-page="fullPage"
+          :is-full-page="fullPage"
         ></loading>
       </div>
     </div>
@@ -29,6 +29,7 @@ export default {
       movies: '',
       isLoading: true,
       fullPage: true,
+      opacity: 0.1,
     }
   },
   mounted() {

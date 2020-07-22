@@ -4,7 +4,7 @@
       <div class="flex items-center">
         <div class="mx-auto">
           <loading
-            opacity="0.1"
+            :opacity="opacity"
             :active.sync="isLoading"
             loader="dots"
             color="#fc8c03"
@@ -51,7 +51,7 @@
         >
           <div
             v-for="credit in credits"
-            :key="`${credit.id} ${credit.charecter}`"
+            :key="`${credit.id} ${credit.credit_id}`"
             class="mt-8"
           >
             <nuxt-link :to="`/movie-detail/${credit.id}`">
@@ -88,7 +88,7 @@
         >
           <div
             v-for="credit in tvCredits"
-            :key="`${credit.id} ${credit.charecter}`"
+            :key="`${credit.id} ${credit.credit_id}`"
             class="mt-8"
           >
             <nuxt-link :to="`/tv-show-detail/${credit.id}`">
@@ -133,6 +133,7 @@ export default {
       tvCredits: '',
       isLoading: true,
       fullPage: true,
+      opacity: 0.1,
     }
   },
   mounted() {

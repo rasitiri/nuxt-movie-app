@@ -38,8 +38,8 @@ export default {
       type: Number,
       required: true,
     },
+    // eslint-disable-next-line vue/require-prop-types
     profilePath: {
-      type: String,
       required: true,
     },
     name: {

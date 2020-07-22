@@ -50,7 +50,11 @@
         <div
           class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8"
         >
-          <div v-for="credit in credits" :key="credit.id" class="mt-8">
+          <div
+            v-for="credit in credits"
+            :key="credit.id + credit.cast_id"
+            class="mt-8"
+          >
             <nuxt-link :to="`/people-detail/${credit.id}`">
               <img
                 v-if="credit.profile_path"

@@ -41,7 +41,7 @@
     </div>
     <div v-if="isLoading" class="flex items-center">
       <div class="mx-auto">
-        <loading :active.sync="isLoading" is-full-page="fullPage"></loading>
+        <loading :active.sync="isLoading" :is-full-page="fullPage"></loading>
       </div>
     </div>
     <div class="movie-cast border-b border-gray-800">

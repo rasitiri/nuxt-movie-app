@@ -30,10 +30,13 @@ export default {
       isLoading: true,
       fullPage: true,
       opacity: 0.1,
+      tvGenres: [],
+      movieGenres: [],
     }
   },
   mounted() {
     this.getMovies()
+    this.getGenres()
   },
   methods: {
     async getMovies() {

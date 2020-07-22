@@ -15,20 +15,25 @@
           </nuxt-link>
         </li>
         <li class="md:ml-16 mt-3 md:mt-0">
-          <nuxt-link to="/" class="hover:text-gray-300">Movies</nuxt-link>
+          <nuxt-link to="/movie" class="hover:text-gray-300">Movies</nuxt-link>
         </li>
         <li class="md:ml-6 mt-3 md:mt-0">
-          <nuxt-link to="/" class="hover:text-gray-300">TV Shows</nuxt-link>
+          <nuxt-link to="/tvshow" class="hover:text-gray-300"
+            >TV Shows</nuxt-link
+          >
         </li>
         <li class="md:ml-6 mt-3 md:mt-0">
-          <nuxt-link to="/" class="hover:text-gray-300">Actors</nuxt-link>
+          <nuxt-link to="/actors" class="hover:text-gray-300">Actors</nuxt-link>
         </li>
       </ul>
       <div class="flex flex-col md:flex-row items-center">
         <div class="relative mt-3 md:mt-0">
           <input
+            v-model="query"
             type="text"
             class="bg-gray-800 text-sm rounded-full w-64 px-4 pl-8 py-1 focus:outline-none focus:shadow-outline"
+            @focus="isOpen = true"
+            @keydown.esc="isOpen = false"
           />
           <div class="absolute top-0">
             <svg
@@ -41,6 +46,75 @@
               />
             </svg>
           </div>
+          <div class="top-0 right-0 mr-4"></div>
+          <div class="z-50 absolute bg-gray-800 text-sm w-64 mt-1">
+            <ul v-if="results.length > 0 && isOpen && !query.length < 1">
+              <li
+                v-for="result in results"
+                :key="result.id"
+                class="border border-gray-700 rounded-lg"
+                @click="onClickMovie"
+              >
+                <nuxt-link
+                  v-if="result.media_type === 'movie'"
+                  class="hover:bg-gray-700 px-3 py-3 flex items-center transition ease-in-out duration-150"
+                  :to="`/movie-detail/${result.id}`"
+                >
+                  <img
+                    v-if="result.poster_path"
+                    :src="`https://image.tmdb.org/t/p/w92/${result.poster_path}`"
+                    alt="poster"
+                    class="w-8"
+                  />
+                  <img
+                    v-else
+                    :src="`https://via.placeholder.com/90x130.png/5c615e/d9dedb?text=${result.title}`"
+                    alt="poster"
+                    class="w-8"
+                  />
+                  <span class="ml-4">{{ result.title }}</span>
+                </nuxt-link>
+                <nuxt-link
+                  v-else-if="result.media_type === 'tv'"
+                  class="hover:bg-gray-700 px-3 py-3 flex items-center transition ease-in-out duration-150"
+                  :to="`/tv-show-detail/${result.id}`"
+                >
+                  <img
+                    v-if="result.poster_path"
+                    :src="`https://image.tmdb.org/t/p/w92/${result.poster_path}`"
+                    alt="poster"
+                    class="w-8"
+                  />
+                  <img
+                    v-else
+                    :src="`https://via.placeholder.com/90x130.png/5c615e/d9dedb?text=${result.name}`"
+                    alt="poster"
+                    class="w-8"
+                  />
+                  <span class="ml-4">{{ result.name }}</span>
+                </nuxt-link>
+                <nuxt-link
+                  v-else
+                  class="hover:bg-gray-700 px-3 py-3 flex items-center transition ease-in-out duration-150"
+                  :to="`/people-detail/${result.id}`"
+                >
+                  <img
+                    v-if="result.profile_path"
+                    :src="`https://image.tmdb.org/t/p/w92/${result.profile_path}`"
+                    alt="poster"
+                    class="w-8"
+                  />
+                  <img
+                    v-else
+                    :src="`https://via.placeholder.com/90x130.png/5c615e/d9dedb?text=${result.name}`"
+                    alt="poster"
+                    class="w-8"
+                  />
+                  <span class="ml-4">{{ result.name }}</span>
+                </nuxt-link>
+              </li>
+            </ul>
+          </div>
         </div>
       </div>
     </div>
@@ -48,5 +122,31 @@
 </template>
 
 <script>
-export default {}
+export default {
+  data() {
+    return {
+      query: '',
+      results: '',
+      isOpen: false,
+    }
+  },
+  watch: {
+    query() {
+      this.getResults()
+    },
+  },
+  methods: {
+    async getResults() {
+      const res = await this.$axios.get(
+        `/search/multi?api_key=c26a114b77533a5023489c45b4fb3423&query=${this.query}`
+      )
+
+      this.results = res.data.results
+    },
+    onClickMovie() {
+      this.query = ''
+      this.isOpen = false
+    },
+  },
+}
 </script>

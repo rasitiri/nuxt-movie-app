@@ -1,20 +1,20 @@
 <template>
   <div class="mt-8">
-    <nuxt-link :to="`/tv-show-detail/${id}`">
+    <nuxt-link :to="`/people-detail/${id}`">
       <img
-        v-if="posterPath"
-        :src="`https://image.tmdb.org/t/p/w200/${posterPath}`"
+        v-if="profilePath"
+        :src="`https://image.tmdb.org/t/p/w200/${profilePath}`"
         class="hover:opacity-75 transition ease-in-out duration-150"
       />
       <img
         v-else
-        :src="`https://via.placeholder.com/200x300.png/5c615e/d9dedb?text=${title}`"
+        :src="`https://via.placeholder.com/200x300.png/5c615e/d9dedb?text=${name}`"
         class="hover:opacity-75 transition ease-in-out duration-150"
       />
     </nuxt-link>
     <div class="mt-2">
-      <nuxt-link :to="`/tv-show-detail/${id}`" class="mt-2 hover:text-gray-300">
-        <div class="flex flex-wrap">{{ title }}</div>
+      <nuxt-link :to="`/people-detail/${id}`" class="mt-2 hover:text-gray-300">
+        <div class="flex flex-wrap">{{ name }}</div>
       </nuxt-link>
       <div class="flex items-center text-gray-400 text-sm mt-1">
         <svg class="fill-current text-orange-500 w-4" viewBox="0 0 24 24">
@@ -25,11 +25,8 @@
             />
           </g>
         </svg>
-        <span class="ml-1">{{ voteAverage }}</span>
-        <span class="mx-2">|</span>
-        <span>{{ releaseDate }}</span>
+        <span class="ml-1">{{ popularity }}</span>
       </div>
-      <div class="text-gray-400 text-sm">Sci-Fi</div>
     </div>
   </div>
 </template>
@@ -41,20 +38,16 @@ export default {
       type: Number,
       required: true,
     },
-    posterPath: {
+    profilePath: {
       type: String,
       required: true,
     },
-    title: {
+    name: {
       type: String,
       required: true,
     },
-    voteAverage: {
+    popularity: {
       type: Number,
-      required: true,
-    },
-    releaseDate: {
-      type: String,
       required: true,
     },
   },

@@ -59,7 +59,7 @@
               />
               <img
                 v-else
-                src="https://www.pikpng.com/pngl/b/168-1685824_png-file-transparent-background-person-icon-clipart.png"
+                :src="`https://via.placeholder.com/500x750.png/5c615e/d9dedb?text=${credit.name}`"
                 class="hover:opacity-75 transition ease-in-out duration-150"
               />
             </nuxt-link>

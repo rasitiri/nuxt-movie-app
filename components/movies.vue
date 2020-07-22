@@ -1,7 +1,7 @@
 <template>
   <div class="px-20 pt-12">
     <h1 class="uppercase tracking-wider text-orange-500 text-lg font-semibold">
-      Popular Movies
+      Popular Movies (Today)
     </h1>
     <div
       class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8"

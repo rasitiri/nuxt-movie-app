@@ -43,7 +43,7 @@
         </div>
       </div>
     </div>
-    <div v-if="!isLoading2" class="border-b border-gray-800">
+    <div class="border-b border-gray-800">
       <div class="container mx-auto px-4 py-16">
         <h2 class="text-4xl font-semibold">Movies</h2>
         <div
@@ -62,7 +62,46 @@
               />
               <img
                 v-else
-                src="https://www.pikpng.com/pngl/b/168-1685824_png-file-transparent-background-person-icon-clipart.png"
+                :src="`https://via.placeholder.com/500x750.png/5c615e/d9dedb?text=${
+                  credit.name || credit.character
+                }`"
+                class="hover:opacity-75 transition ease-in-out duration-150"
+              />
+            </nuxt-link>
+            <div class="mt-2">
+              <nuxt-link
+                :to="`/people-detail/${credit.id}`"
+                class="text-lg mt-2 hover:text-gray:300"
+                >{{ credit.name }}</nuxt-link
+              >
+              <div class="text-sm text-gray-400">{{ credit.character }}</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="border-b border-gray-800">
+      <div class="container mx-auto px-4 py-16">
+        <h2 class="text-4xl font-semibold">TV Shows</h2>
+        <div
+          class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8"
+        >
+          <div
+            v-for="credit in tvCredits"
+            :key="`${credit.id} ${credit.charecter}`"
+            class="mt-8"
+          >
+            <nuxt-link :to="`/tv-show-detail/${credit.id}`">
+              <img
+                v-if="credit.poster_path"
+                :src="`https://image.tmdb.org/t/p/w500/${credit.poster_path}`"
+                class="hover:opacity-75 transition ease-in-out duration-150"
+              />
+              <img
+                v-else
+                :src="`https://via.placeholder.com/500x750.png/5c615e/d9dedb?text=${
+                  credit.name || credit.character
+                }`"
                 class="hover:opacity-75 transition ease-in-out duration-150"
               />
             </nuxt-link>
@@ -91,6 +130,7 @@ export default {
     return {
       person: '',
       credits: '',
+      tvCredits: '',
       isLoading: true,
       fullPage: true,
     }
@@ -98,6 +138,7 @@ export default {
   mounted() {
     this.getPerson()
     this.getCredits()
+    this.getTvCredits()
   },
   methods: {
     async getPerson() {
@@ -114,6 +155,15 @@ export default {
       )
 
       this.credits = res.data.cast
+      this.isLoading = false
+    },
+
+    async getTvCredits() {
+      const res = await this.$axios.get(
+        `/person/${this.$route.params.id}/tv_credits/?api_key=c26a114b77533a5023489c45b4fb3423`
+      )
+
+      this.tvCredits = res.data.cast
       this.isLoading = false
     },
   },
